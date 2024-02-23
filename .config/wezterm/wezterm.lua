@@ -2,7 +2,11 @@ local wezterm = require("wezterm")
 
 return {
 	-- Appearance
-	font = wezterm.font("JetBrainsMono Nerd Font"),
+	font = wezterm.font_with_fallback({
+		"JetBrainsMono Nerd Font",
+		"Noto Color Emoji",
+	}),
+	warn_about_missing_glyphs = false,
 	color_scheme = "tokyonight",
 
 	-- Tab Bar
