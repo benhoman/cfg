@@ -1,0 +1,6 @@
+[user]
+  email = bhoman@consumeraffairs.com
+  name = Ben Homan
+
+[core]
+  sshCommand = "ssh -i ~/.ssh/ca_id_rsa -F /dev/null"
