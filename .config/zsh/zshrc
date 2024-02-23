@@ -1,0 +1,86 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# FZF
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+
+## Oh my ZSH
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_PYENV_QUIET=true
+UPDATE_ZSH_DAYS=3
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+zstyle :omz:plugins:ssh-agent identities ~/.ssh/{id_ed25519,id_rsa,id_rsa-ca}
+
+plugins=(
+    # direnv
+    docker
+    fnm
+    fzf
+    git
+    pyenv
+    ripgrep
+    ssh-agent
+    thefuck
+    # vi-mode
+    zoxide
+    zsh-autosuggestions
+    zsh-pyenv
+    zsh-syntax-highlighting
+)
+# Better SSH/Rsync/SCP Autocomplete
+zstyle ':completion:*:(scp|rsync):*' tag-order ' hosts:-ipaddr:ip\ address hosts:-host:host files'
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
+
+source $ZSH/oh-my-zsh.sh
+
+## User Config
+export LANG=en_US.UTF-8
+export EDITOR=/usr/bin/nvim
+export PATH="$HOME/.local/bin:$PATH"
+
+# Docker
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+
+# Go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+
+# Rust
+[[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
+
+# fnm
+export PATH=/home/bhoman/.fnm:$PATH
+eval "$(fnm env --use-on-cd)"
+
+# Load Aliases and Functions
+[[ -f $HOME/.config/zsh/aliases.zsh ]] && source $HOME/.config/zsh/aliases.zsh
+[[ -f $HOME/.config/zsh/functions.zsh ]] && source $HOME/.config/zsh/functions.zsh
+
+# [ -n "$container" ] && PS1="🐋 $PS1"
+
+# Load CA zsh config
+# if [[ "$(hostname)" == "bhoman-ca-workstation" ]] && [[ -f $HOME/.config/zsh/ca_config.zsh ]]; then
+if [[ -f $HOME/.config/zsh/ca_config.zsh ]]; then
+  source $HOME/.config/zsh/ca_config.zsh
+fi
+
+# Load Silverblue config
+if grep -q "Silverblue" /etc/os-release && [[ -f $HOME/.config/zsh/silverblue.zsh ]]; then
+    source $HOME/.config/zsh/silverblue.zsh
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+
+if [ -e /home/bhoman/.nix-profile/etc/profile.d/nix.sh ]; then . /home/bhoman/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+# VI mode
+bindkey -v
+bindkey "^R" history-incremental-search-backward
