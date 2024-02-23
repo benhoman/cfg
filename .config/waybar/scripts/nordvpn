@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if ! command -v nordvpn &> /dev/null; then
+    printf '{"text": ""}\n'
+else
+    NORDVPN_STATUS=$(nordvpn status | grep Status | awk -F ': ' '{print $2}')
+    if [ "$NORDVPN_STATUS" = "Connected" ]; then
+        SERVER=$(nordvpn status | grep "Current server" | awk -F ': ' '{print $2}')
+        printf '{"text": "  %s"}\n' "$SERVER"
+    else
+        printf '{"text": ""}\n'
+    fi
+fi
