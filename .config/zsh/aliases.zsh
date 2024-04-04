@@ -21,6 +21,7 @@ alias pbpaste="xsel --clipboard --output"
 
 # dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias dots='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # exa
 if command -v exa 2>&1 >/dev/null; then
