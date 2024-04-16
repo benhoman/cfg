@@ -3,4 +3,4 @@
   name = Ben Homan
 
 [core]
-  sshCommand = "ssh -i ~/.ssh/ca_id_rsa -F /dev/null"
+  sshCommand = "ssh -i ~/.ssh/id_rsa-ca -F /dev/null"
