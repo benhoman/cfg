@@ -41,8 +41,15 @@ source $ZSH/oh-my-zsh.sh
 
 ## User Config
 export LANG=en_US.UTF-8
-export EDITOR=/usr/bin/nvim
 export PATH="$HOME/.local/bin:$PATH"
+if hash nvim 2>/dev/null; then
+  export EDITOR=nvim
+
+  # use nvim as manpager `:h Man`
+  export MANPAGER='nvim +Man!'
+else
+  export EDITOR=vim
+fi
 
 # Docker
 export DOCKER_BUILDKIT=1
