@@ -44,6 +44,8 @@ zinit snippet OMZP::docker-compose
 # Load completions
 autoload -Uz compinit && compinit
 
+zinit cdreplay -q
+
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/p10k.zsh.
 [[ ! -f $P10K_CONFIG ]] || source $P10K_CONFIG
 

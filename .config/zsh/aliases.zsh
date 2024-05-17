@@ -29,6 +29,8 @@ if command -v exa 2>&1 >/dev/null; then
   alias ll="exa --color=auto --icons -lah"
   alias lg="exa --color=auto --icons --grid -lah"
   alias la="exa --color=auto --icons -a"
+else
+  alias ls="ls --color"
 fi
 
 alias lgrep="ls -lha | grep"
