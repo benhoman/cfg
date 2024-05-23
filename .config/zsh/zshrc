@@ -11,6 +11,7 @@ ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config/zsh}"
 ZSH_ALIASES="${ZSH_CONFIG_DIR}/aliases.zsh"
 ZSH_FUNCTIONS="${ZSH_CONFIG_DIR}/functions.zsh"
 P10K_CONFIG="${ZSH_CONFIG_DIR}/p10k.zsh"
+CA_CONFIG="${ZSH_CONFIG_DIR}/ca_config.zsh"
 
 # Path
 path=("$HOME/.local/bin" $path)
@@ -78,6 +79,15 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'exa --color=auto $realpath'
 # Load Aliases/Functions
 [[ ! -f $ZSH_ALIASES ]] || source $ZSH_ALIASES
 
+# Load CA Config on thanos
+if [[ $(hostnamectl hostname) == "thanos" ]] then;
+  [[ ! -f $CA_CONFIG ]] || source $CA_CONFIG
+fi
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+# SSH-Agent
+eval $(ssh-agent) > /dev/null
+find ~/.ssh -name 'id_*' ! -name '*.pub' -exec ssh-add -q {} \;
