@@ -30,7 +30,14 @@ success_symbol = "[🍆](bold green)"
 '~/tests/starship-custom' = 'work-project'
 
 [git_branch]
+symbol = " "
 format = '[$symbol$branch(:$remote_branch)]($style)'
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+
+[git_status]
+stashed = "\\$"
 
 [aws]
 format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
@@ -80,3 +87,60 @@ surface0 = "#313244"
 base = "#1e1e2e"
 mantle = "#181825"
 crust = "#11111b"
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+Arch = " "
+Artix = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[zig]
+symbol = " "
