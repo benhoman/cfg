@@ -6,6 +6,7 @@ return {
 		"JetBrainsMono Nerd Font",
 		"Noto Color Emoji",
 	}),
+	font_size = 12.0,
 	warn_about_missing_glyphs = false,
 	color_scheme = "tokyonight",
 
