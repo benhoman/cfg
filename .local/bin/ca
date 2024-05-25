@@ -1,134 +1,131 @@
+#!/usr/bin/env bash
+
 PROGNAME=$(basename $0)
 REPO=$(git rev-parse --show-toplevel)
 REPO_NAME=$(basename $REPO)
 DOCKER_COMPOSE_FILE=$(find $REPO -type f -name docker-compose.yml -print -quit)
 
-_get_app_name() {
-	if [[ $REPO_NAME == "brands" ]]; then
-		echo "web"
-	else
-		docker compose -f $DOCKER_COMPOSE_FILE config --services 2>/dev/null | rg "django" | head -n1
-	fi
+_get_app_name(){
+    if [[ $REPO_NAME == "brands" ]]; then
+        echo "web"
+    else
+        docker compose -f $DOCKER_COMPOSE_FILE config --services | grep "django" | head -n1
+    fi
 }
 
 APP_NAME=$(_get_app_name)
 
-sub_help() {
-	echo "Usage: $PROGNAME <subcommand> [options]\n"
-	echo "Subcommands:"
-	echo "  app             Print determined app name"
-	echo "  bash            Open bash shell"
-	echo "  build           Build docker image"
-	echo "  manage          Run manage.py"
-	echo "  migrate         Run migrations"
-	echo "  makemigrations  Run makemigrations"
-	echo "  pip-compile     Compile python dependencies"
-	echo "  reup            Up and down"
-	echo "  run             Run command in container"
-	echo "  shell           Open django shell"
-	echo "  showmigrations  Show migrations"
-	echo "  superuser       Create Superuser"
-	echo "  term            Open terminal"
-	echo "  test            Run Tests"
-	echo "  pytest          Run Tests with pytest"
-	echo "  has_pytest      Project has pytest installed"
-	echo ""
+sub_help(){
+    echo "Usage: $PROGNAME <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "  app             Print determined app name"
+    echo "  bash            Open bash shell"
+    echo "  build           Build docker image"
+    echo "  manage          Run manage.py"
+    echo "  migrate         Run migrations"
+    echo "  makemigrations  Run makemigrations"
+    echo "  pip-compile     Compile python dependencies"
+    echo "  reup            Up and down"
+    echo "  run             Run command in container"
+    echo "  shell           Open django shell"
+    echo "  showmigrations  Show migrations"
+    echo "  superuser       Create Superuser"
+    echo "  term            Open terminal"
+    echo "  test            Run Tests"
+    echo "  pytest          Run Tests with pytest"
+    echo "  has_pytest      Project has pytest installed"
+    echo ""
 }
 
-sub_app() {
-	echo "$APP_NAME"
+sub_app(){
+    echo "$APP_NAME"
 }
 
-sub_bash() {
-	docker compose run --rm $APP_NAME bash
+sub_bash(){
+    docker compose run --rm $APP_NAME bash
 }
 
-sub_build() {
-	(
-		export SSHKEY=$(cat ~/.ssh/id_rsa-ca)
-		export NPM_TOKEN=$(cat ~/.config/consumeraffairs/npmrc | rg ":_authToken=" | cut -d "=" -f2)
-		export KNOWN_HOSTS=$(ssh-keyscan github.com 2>/dev/null)
-		docker compose build $@
-	)
+sub_build(){
+    SSHKEY=`cat ~/.ssh/ca_id_rsa` NPM_TOKEN=`cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2` KNOWN_HOSTS=`ssh-keyscan github.com 2>/dev/null` docker compose build $@
 }
 
-sub_makemigrations() {
-	docker compose run --rm $APP_NAME python manage.py makemigrations $@
+sub_makemigrations(){
+    docker compose run --rm $APP_NAME python manage.py makemigrations $@
 }
 
-sub_manage() {
-	docker compose run --rm $APP_NAME python manage.py $@
+sub_manage(){
+    docker compose run --rm $APP_NAME python manage.py $@
 }
 
-sub_migrate() {
-	docker compose run --rm $APP_NAME python manage.py migrate $@
+sub_migrate(){
+    docker compose run --rm $APP_NAME python manage.py migrate $@
 }
 
-sub_pipcompile() {
-	docker compose run -e SSHKEY="$(cat ~/.ssh/id_rsa-ca)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME ./bin/pip-compile.sh
+sub_pip-compile(){
+    docker compose run -e SSHKEY="$(cat ~/.ssh/ca_id_rsa)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME ./bin/pip-compile.sh
 }
 
-sub_shell() {
-	if rg -q "django-extensions" $REPO/requirements*; then
-		SHELL_COMMAND="shell_plus"
-	else
-		SHELL_COMMAND="shell"
-	fi
-	docker compose run --rm $APP_NAME python manage.py $SHELL_COMMAND $@
+sub_shell(){
+    if rg -q "django-extensions" $REPO/requirements*; then
+        SHELL_COMMAND="shell_plus"
+    else
+        SHELL_COMMAND="shell"
+    fi
+    docker compose run --rm $APP_NAME python manage.py $SHELL_COMMAND $@
 }
 
-sub_showmigrations() {
-	docker compose run --rm $APP_NAME python manage.py showmigrations $@
+sub_showmigrations(){
+    docker compose run --rm $APP_NAME python manage.py showmigrations $@
 }
 
-sub_sqlmigrate() {
-	docker compose run --rm $APP_NAME python manage.py sqlmigrate $@
+sub_sqlmigrate(){
+    docker compose run --rm $APP_NAME python manage.py sqlmigrate $@
 }
 
-sub_superuser() {
-	docker compose run --rm $APP_NAME python manage.py createsuperuser $@
+sub_superuser(){
+    docker compose run --rm $APP_NAME python manage.py createsuperuser $@
 }
 
-sub_reup() {
-	docker compose down && docker compose up
+sub_reup(){
+    docker compose down && docker compose up
 }
 
-sub_run() {
-	docker compose run --rm $APP_NAME $@
+sub_run(){
+    docker compose run --rm $APP_NAME $@
 }
 
-sub_term() {
-	docker compose run --rm $APP_NAME sh $@
+sub_term(){
+    docker compose run --rm $APP_NAME sh $@
 }
 
-sub_test() {
-	if [[ $REPO_NAME == "silverback" ]]; then
-		docker compose run --rm $APP_NAME pytest $@
-	else
-		docker compose run --rm $APP_NAME python manage.py test $@
-	fi
+sub_test(){
+    if [[ $REPO_NAME == "silverback" ]]; then
+        docker compose run --rm $APP_NAME pytest $@
+    else
+        docker compose run --rm $APP_NAME python manage.py test $@
+    fi
 }
 
-sub_pytest() {
-	docker compose run --rm $APP_NAME pytest $@
+sub_pytest(){
+    docker compose run --rm $APP_NAME pytest $@
 }
 
-sub_has_pytest() {
-	rg -q "pytest" $REPO/requirements*
+sub_has_pytest(){
+    rg -q "pytest" $REPO/requirements*
 }
 
 subcommand=$1
 case $subcommand in
-"" | "-h" | "--help")
-	sub_help
-	;;
-*)
-	shift
-	sub_${subcommand} $@
-	if [ $? = 127 ]; then
-		echo "Error: '$subcommand' is not a known subcommand." >&2
-		echo "       Run '$PROGNAME --help' for a list of known subcommands." >&2
-		exit 1
-	fi
-	;;
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$PROGNAME --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
 esac
