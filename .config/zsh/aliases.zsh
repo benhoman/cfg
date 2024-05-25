@@ -24,11 +24,12 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias dots='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # exa
-if command -v exa 2>&1 >/dev/null; then
-  alias ls="exa --color=auto"
-  alias ll="exa --color=auto --icons -lah"
-  alias lg="exa --color=auto --icons --grid -lah"
-  alias la="exa --color=auto --icons -a"
+if command -v eza 2>&1 >/dev/null; then
+  alias l="eza -l --icons --git -a"
+  alias ls="eza --color=auto"
+  alias ll="eza --color=auto --icons -lah"
+  alias lg="eza --color=auto --icons --grid -lah"
+  alias la="eza --color=auto --icons -a"
 else
   alias ls="ls --color"
 fi

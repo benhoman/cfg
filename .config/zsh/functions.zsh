@@ -3,6 +3,7 @@ function pssh () {
 }
 
 function mkcd () { mkdir -p "$1" && cd "$1" }
+function cl () { cd "$@" && l; }
 
 function rgfzf () {
   # ripgrep
