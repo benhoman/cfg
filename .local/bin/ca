@@ -46,7 +46,7 @@ sub_bash(){
 }
 
 sub_build(){
-    SSHKEY=`cat ~/.ssh/ca_id_rsa` NPM_TOKEN=`cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2` KNOWN_HOSTS=`ssh-keyscan github.com 2>/dev/null` docker compose build $@
+    SSHKEY=`cat ~/.ssh/id_rsa-ca` NPM_TOKEN=`cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2` KNOWN_HOSTS=`ssh-keyscan github.com 2>/dev/null` docker compose build $@
 }
 
 sub_makemigrations(){
@@ -62,7 +62,7 @@ sub_migrate(){
 }
 
 sub_pip-compile(){
-    docker compose run -e SSHKEY="$(cat ~/.ssh/ca_id_rsa)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME ./bin/pip-compile.sh
+    docker compose run -e SSHKEY="$(cat ~/.ssh/id_rsa-ca)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME ./bin/pip-compile.sh
 }
 
 sub_shell(){
