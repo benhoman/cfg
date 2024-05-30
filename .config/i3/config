@@ -1,5 +1,6 @@
 set $mod Mod4
-set $term /usr/bin/kitty
+set $term /usr/bin/wezterm
+# set $term /usr/bin/kitty
 # set $term /usr/bin/alacritty
 set $menu j4-dmenu-desktop
 set $lock ~/.local/bin/lock
