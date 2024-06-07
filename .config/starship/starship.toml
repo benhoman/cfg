@@ -37,7 +37,13 @@ format = '[$symbol$branch(:$remote_branch)]($style)'
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 
 [git_status]
-stashed = "\\$"
+conflicted = "  "
+deleted = " 﫧"
+modified = "  "
+stashed = "  "
+staged = "  "
+renamed = "  "
+untracked = "  "
 
 [aws]
 format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
