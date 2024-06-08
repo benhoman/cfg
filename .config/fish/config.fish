@@ -1,5 +1,6 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
+  pyenv init - | source
+  pyenv virtualenv-init - | source
 end
 
 # Disable the fish greeting message
@@ -14,11 +15,16 @@ if type -q pyenv
   status --is-interactive; and source (pyenv init -|psub)
 end
 
-# Starship
-function starship_transient_prompt_func
-  starship module character
-end
-starship init fish | source
-enable_transience
+# # Starship
+# function starship_transient_prompt_func
+#   starship module character
+# end
+# starship init fish | source
+# enable_transience
+
+# Tide Prompt
+set --global tide_character_icon '🍆'
+set --global tide_cmd_duration_decimals 2
+set --global tide_cmd_duration_threshold 0
 
 source ~/.config/fish/abbreviations.fish
