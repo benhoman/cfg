@@ -49,7 +49,7 @@ if command -v colordiff 2>&1 >/dev/null; then
 fi
 
 # tmux
-alias ta="tmux attach -t"
+# alias ta="tmux attach -t"
 
 # cd Aliases
 alias ..="cd .."

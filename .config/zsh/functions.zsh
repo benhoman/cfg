@@ -30,6 +30,15 @@ function socks_proxy_home () {
     bhoman/ssh ssh home.proxy
   }
 
+# Tmux attach with fzf
+function ta () {
+  if [ $# -eq 0 ]; then
+    tmux list-sessions | sed -E 's/:.*$//' | fzf | xargs tmux attach -t
+  else
+    tmux attach -t "$1"
+  fi
+}
+
 function tb () {
   if [ $# -eq 0 ]; then
     toolbox enter

@@ -46,7 +46,7 @@ sub_bash(){
 }
 
 sub_build(){
-    SSHKEY=`cat ~/.ssh/id_rsa-ca` NPM_TOKEN=`cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2` KNOWN_HOSTS=`ssh-keyscan github.com 2>/dev/null` docker compose build $@
+    SSHKEY=`cat ~/.ssh/id_rsa-ca` NPM_TOKEN=`cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2` KNOWN_HOSTS=`ssh-keyscan github.com 2>/dev/null` DOCKER_BUILDKIT=1 docker compose build $@
 }
 
 sub_makemigrations(){
