@@ -1,18 +1,28 @@
 if status is-interactive
-  pyenv init - | source
-  pyenv virtualenv-init - | source
+    pyenv init - | source
+    pyenv virtualenv-init - | source
 end
+
+# Path
+set -x fish_user_paths
+fish_add_path ~/.local/bin
+
+# ssh
+alias ssh "TERM=xterm-256color command ssh"
+alias mosh "TERM=xterm-256color command mosh"
 
 # Disable the fish greeting message
 set fish_greeting ""
 
 # Setup brew
-eval "$(brew shellenv)"
+if type -q brew
+    eval "$(brew shellenv)"
+end
 
 # Pyenv setup
 # Requires `brew install pyenv`
 if type -q pyenv
-  status --is-interactive; and source (pyenv init -|psub)
+    status --is-interactive; and source (pyenv init -|psub)
 end
 
 # # Starship
@@ -28,3 +38,6 @@ set --global tide_cmd_duration_decimals 2
 set --global tide_cmd_duration_threshold 0
 
 source ~/.config/fish/abbreviations.fish
+
+# Bootstrap Fisher
+# curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
