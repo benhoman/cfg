@@ -13,7 +13,7 @@ font pango:JetBrainsMono Nerd Font, FontAwesome 12
 # exec --no-startup-id nm-applet
 exec_always --no-startup-id ~/.screenlayout/office.sh
 exec_always --no-startup-id feh --bg-center ~/.cache/bg
-# exec_always --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps,altwin:swap_lalt_lwin"
+exec_always --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps,altwin:swap_lalt_lwin"
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id autorandr --change
 exec --no-startup-id xset s off
@@ -35,8 +35,12 @@ for_window [class="(.*join\?action\=join.*|.*zoom.*)" title="Zoom Meeting"] floa
 # for_window [class="crx_$" title="Gmail$"] move workspace 7
 
 # move focused workspace between monitors
-bindsym $mod+Ctrl+greater move workspace to output right
-bindsym $mod+Ctrl+less move workspace to output left
+# bindsym $mod+Ctrl+greater move workspace to output right
+# bindsym $mod+Ctrl+less move workspace to output left
+bindsym $mod+Control+Shift+h move workspace to output left
+bindsym $mod+Control+Shift+j move workspace to output up
+bindsym $mod+Control+Shift+k move workspace to output down
+bindsym $mod+Control+Shift+l move workspace to output right
 
 # Scratchpad
 for_window [title="Zoom - Free Account"] , move scratchpad
