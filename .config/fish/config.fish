@@ -1,7 +1,3 @@
-if status is-interactive
-    pyenv init - | source
-    pyenv virtualenv-init - | source
-end
 
 # Path
 set -x fish_user_paths
@@ -22,7 +18,19 @@ end
 # Pyenv setup
 # Requires `brew install pyenv`
 if type -q pyenv
-    status --is-interactive; and source (pyenv init -|psub)
+    if status is-interactive
+        pyenv init - | source
+        pyenv virtualenv-init - | source
+    end
+end
+
+# Mise
+if type -q mise
+    if status is-interactive
+        mise activate fish | source
+    else
+        mise activate fish --shims | source
+    end
 end
 
 # # Starship
