@@ -159,8 +159,6 @@ seat * hide_cursor 3000
     assign [class="Spotify"] $ws8
     assign [class="Telegram"] $ws7https://raw.githubusercontent.com/naibaf0/dotfiles/master/config/wofi/config
 
-
-
 ### Key bindings
 #
 # Basics:
