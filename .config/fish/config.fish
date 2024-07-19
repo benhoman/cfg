@@ -38,6 +38,13 @@ if type -q mise
     end
 end
 
+# Atuin
+if type -q atuin
+    if status is-interactive
+        atuin init fish | source
+    end
+end
+
 # # Starship
 # function starship_transient_prompt_func
 #   starship module character
