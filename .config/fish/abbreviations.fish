@@ -40,3 +40,6 @@ abbr --add gpus 'git pull upstream staging'
 abbr --add gcob 'git branch | fzf | xargs git checkout'
 # abbr --add gdnew "for next in \$( git ls-files --others --exclude-standard ) ; do git --no-pager diff --no-index /dev/null \$next; done;"
 abbr --add gdall "git --no-pager diff; gdnew"
+
+# Misc
+abbr --add hm "history merge" # Merge history from other terminal
