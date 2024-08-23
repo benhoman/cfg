@@ -36,6 +36,11 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
+# Direnv
+zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' pick"direnv" src"zhook.zsh" for \
+        direnv/direnv
+
 # Snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
@@ -55,6 +60,8 @@ zinit cdreplay -q
 bindkey '^y' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '\e[H' beginning-of-line
+bindkey '\e[F' end-of-line
 
 # History
 HISTSIZE=10000
@@ -103,7 +110,7 @@ eval $(ssh-agent) > /dev/null
 find ~/.ssh -name 'id_*' ! -name '*.pub' -exec ssh-add -q {} \;
 
 # Pyenv
-# [[ ! -f $PYENV_CONFIG ]] || source $PYENV_CONFIG
+[[ ! -f $PYENV_CONFIG ]] || source $PYENV_CONFIG
 
 _fzf_compgen_path() {
     rg --files --glob "!.git" . "$1"

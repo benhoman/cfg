@@ -1,6 +1,6 @@
 set $mod Mod4
-set $term /usr/bin/wezterm
-# set $term /usr/bin/kitty
+# set $term /usr/bin/wezterm
+set $term /usr/bin/kitty
 # set $term /usr/bin/alacritty
 set $menu j4-dmenu-desktop
 # set $lock ~/.local/bin/lock
@@ -47,7 +47,8 @@ for_window [title="Zoom - Free Account"] , move scratchpad
 bindsym $mod+Shift+z [title="Zoom - Free Account"] scratchpad show
 
 for_window [instance="terminal_scratchpad"] , move scratchpad
-bindsym $mod+Shift+Return [instance="terminal_scratchpad"] scratchpad show
+# bindsym $mod+Shift+Return [instance="terminal_scratchpad"] scratchpad show
+bindsym $mod+p [instance="terminal_scratchpad"] scratchpad show
 
 ## Keybindings
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -104,6 +105,7 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f exec ~/.config/i3/toggle_fullscreen.sh
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
