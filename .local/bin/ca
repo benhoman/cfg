@@ -19,15 +19,15 @@ _app_running() {
 
 _exec_run() {
   if _app_running; then
-    docker compose exec $APP_NAME $@
+    docker compose exec -e PYTHONWARNINGS=ignore $APP_NAME $@
   else
-    docker compose run --rm $APP_NAME $@
+    docker compose run -e PYTHONWARNINGS=ignore --rm $APP_NAME $@
   fi
 }
 
 _exec_run_env() {
   if _app_running; then
-    docker compose exec -e SSHKEY="$(cat ~/.ssh/id_rsa-ca)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME $@
+    docker compose exec -e SSHKEY="$(cat ~/.ssh/id_rsa-ca)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" $APP_NAME $@
   else
     docker compose run -e SSHKEY="$(cat ~/.ssh/id_rsa-ca)" -e KNOWN_HOSTS="$(ssh-keyscan github.com 2>/dev/null)" --rm $APP_NAME $@
   fi

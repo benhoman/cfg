@@ -68,6 +68,7 @@ tags.*
 .idea
 .iml
 *.sublime-workspace
+.nvim.lua
 
 # Package Manager #
 ###################
