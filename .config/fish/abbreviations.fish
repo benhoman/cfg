@@ -10,11 +10,11 @@ end
 
 abbr --add lgrep "ls -lha | grep"
 
-if type -q batcat
-    abbr --add cat batcat
-else if type -q bat
-    abbr --add cat bat
-end
+# if type -q batcat
+#     abbr --add cat batcat
+# else if type -q bat
+#     abbr --add cat bat
+# end
 
 # Docker
 abbr --add dc "docker compose"
@@ -43,3 +43,4 @@ abbr --add gdall "git --no-pager diff; gdnew"
 
 # Misc
 abbr --add hm "history merge" # Merge history from other terminal
+abbr --add cfg config
