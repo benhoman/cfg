@@ -44,3 +44,9 @@ abbr --add gdall "git --no-pager diff; gdnew"
 # Misc
 abbr --add hm "history merge" # Merge history from other terminal
 abbr --add cfg config
+
+# Copy/Paste
+abbr --add pbcopy fish_clipboard_copy
+abbr --add pbpaste fish_clipboard_paste
+abbr --add fcc fish_clipboard_copy
+abbr --add fcp fish_clipboard_paste
