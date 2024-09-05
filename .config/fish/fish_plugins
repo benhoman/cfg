@@ -3,3 +3,5 @@ rstacruz/fish-npm-global
 ilancosman/tide@v6
 kidonng/zoxide.fish
 decors/fish-colored-man
+jorgebucaran/autopair.fish
+patrickf1/fzf.fish
