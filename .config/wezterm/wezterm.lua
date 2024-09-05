@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 return {
 	-- Spawn a fish shell in login mode
-	-- default_prog = { "/usr/bin/env", "fish", "-l" },
+	default_prog = { "/usr/bin/env", "fish", "-l" },
 	-- default_prog = { "/usr/bin/zsh" },
 
 	-- Appearance
