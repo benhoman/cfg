@@ -1,20 +1,9 @@
-function cat -d "Use bat instead of cat unless it's a Markdown file, then use mdless"
-    set -l exts md markdown txt
-
-    if not test -f $argv
-        echo "File not found: $argv"
-        return 0
-    end
-
-    if contains (get_ext $argv) $exts
-        mdless $argv
+function cat --wraps=bat -d "Use bat instead of cat"
+    if type -q bat
+        command bat $argv
+    else if type -q batcat
+        command batcat $argv
     else
-        if type -q bat
-            command bat $argv
-        else if type -q batcat
-            command batcat $argv
-        else
-            command cat $argv
-        end
+        command cat $argv
     end
 end
