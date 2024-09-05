@@ -1,4 +1,4 @@
-function mkcd
-	mkdir -p $argv[1]
-	cd $argv[1]
+function mkcd -d "Create directory and change to it"
+    mkdir -pv $argv
+    cd $argv
 end
