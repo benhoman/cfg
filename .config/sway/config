@@ -25,7 +25,7 @@ set $term wezterm start
 # set $menu 'rofi -modi run, drun, window  -show drun'
 # set $menu wofi -G -i --show drun | xargs swaymsg exec
 # set $menu exec $term --class=launcher -e ~/.config/sway/scripts/launcher
-set $menu exec j4-dmenu-desktop --dmenu='bemenu -i' --term='$term'
+set $menu exec j4-dmenu-desktop --dmenu='bemenu -i' | xargs swaymsg exec --
 # set $menu exec $term --class=launcher -e sway-launcher-desktop
 set $emoji_menu exec $term --class=launcher -e $HOME/bin/emoji-menu
 
