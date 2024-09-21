@@ -14,8 +14,8 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term wezterm start
-# set $term kitty
+# set $term wezterm start
+set $term kitty
 # set $term alacritty
 # set $term foot
 # Your preferred application launcher
