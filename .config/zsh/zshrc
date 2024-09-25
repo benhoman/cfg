@@ -15,6 +15,7 @@ CA_CONFIG="${ZSH_CONFIG_DIR}/ca_config.zsh"
 PYENV_CONFIG="${ZSH_CONFIG_DIR}/pyenv.zsh"
 
 # Path
+typeset -U path PATH
 path=("$HOME/.local/bin" $path)
 export PATH
 
@@ -27,7 +28,7 @@ fi
 # Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Powerlevel10k
+# # Powerlevel10k
 # zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # Add zsh plugins
@@ -42,11 +43,8 @@ zinit as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
         direnv/direnv
 
 # Snippets
-zinit snippet OMZP::git
-zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
+# zinit snippet OMZP::git
 zinit snippet OMZP::command-not-found
-zinit snippet OMZP::docker-compose
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -60,8 +58,8 @@ zinit cdreplay -q
 bindkey '^y' autosuggest-accept
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey '\e[H' beginning-of-line
-bindkey '\e[F' end-of-line
+# bindkey '\e[H' beginning-of-line
+# bindkey '\e[F' end-of-line
 
 # History
 HISTSIZE=10000
