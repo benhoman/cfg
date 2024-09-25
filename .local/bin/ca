@@ -67,8 +67,14 @@ sub_bash() {
 
 sub_build() {
   if [[ $REPO_NAME == "silverback" ]]; then
-    SSHKEY=$(cat ~/.ssh/id_rsa-ca) NPM_TOKEN=$(cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2) KNOWN_HOSTS=$(ssh-keyscan github.com 2>/dev/null) DOCKER_BUILDKIT=1 docker compose build be-build-base fe-build-base
+    echo "###################################"
+    echo "# Building silverback base images #"
+    echo "###################################"
+    SSHKEY=$(cat ~/.ssh/id_rsa-ca) NPM_TOKEN=$(cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2) KNOWN_HOSTS=$(ssh-keyscan github.com 2>/dev/null) DOCKER_BUILDKIT=1 docker compose build $@ be-build-base fe-build-base
   fi
+  echo "###################"
+  echo "# Building images #"
+  echo "###################"
   SSHKEY=$(cat ~/.ssh/id_rsa-ca) NPM_TOKEN=$(cat ~/.config/consumeraffairs/npmrc | grep ":_authToken=" | cut -d "=" -f2) KNOWN_HOSTS=$(ssh-keyscan github.com 2>/dev/null) DOCKER_BUILDKIT=1 docker compose build $@
 }
 
