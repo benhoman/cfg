@@ -1,12 +1,11 @@
 jorgebucaran/fisher
 rstacruz/fish-npm-global
-ilancosman/tide@v6
 kidonng/zoxide.fish
 decors/fish-colored-man
 jorgebucaran/autopair.fish
 patrickf1/fzf.fish
 franciscolourenco/done
-gazorby/fish-abbreviation-tips
 jorgebucaran/nvm.fish
-axkirillov/tokyonight-fish
 halostatue/fish-direnv
+pure-fish/pure
+acomagu/fish-async-prompt
