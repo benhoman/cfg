@@ -22,10 +22,10 @@ set $term kitty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-# set $menu 'rofi -modi run, drun, window  -show drun'
+set $menu 'rofi -modi run, drun, window  -show drun'
 # set $menu wofi -G -i --show drun | xargs swaymsg exec
 # set $menu exec $term --class=launcher -e ~/.config/sway/scripts/launcher
-set $menu exec j4-dmenu-desktop --dmenu='bemenu -i' | xargs swaymsg exec --
+# set $menu exec j4-dmenu-desktop --dmenu='bemenu -i' | xargs swaymsg exec --
 # set $menu exec $term --class=launcher -e sway-launcher-desktop
 set $emoji_menu exec $term --class=launcher -e $HOME/bin/emoji-menu
 
