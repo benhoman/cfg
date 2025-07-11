@@ -2,6 +2,7 @@
 alias sudo="sudo "
 alias e="nvim"
 # alias vim="nvim"
+alias n="NVIM_APPNAME=neovim nvim"
 
 # Kitty
 if command -v kitty 2>&1 >/dev/null && [[ "$TERM" == "xterm-kitty" ]]; then

@@ -1,25 +1,28 @@
-set $mod Mod4
-# set $term /usr/bin/wezterm
-set $term /usr/bin/kitty
-# set $term /usr/bin/alacritty
+# set $mod Mod4
+set $mod Mod1
+set $term /usr/bin/ghostty
+set $scratchpad $term --class="terminal_scratchpad" -e "tmux new-session -A -s scratchpad"
+# set $scratchpad $term --title="terminal_scratchpad" -e "tmux new-session -A -s scratchpad"
+# set $scratchpad $term --class="terminal_scratchpad" tmux new-session -A -s scratchpad
 set $menu j4-dmenu-desktop
 # set $lock ~/.local/bin/lock
 set $lock i3lock -c '333333' && sleep 5 && xset dpms force off
 
 # font pango:monospace 8
-font pango:JetBrainsMono Nerd Font, FontAwesome 12
+font pango:JetBrainsMono Nerd Font, FontAwesome 11
 
 # Autostart
 # exec --no-startup-id nm-applet
 exec_always --no-startup-id ~/.screenlayout/office.sh
 exec_always --no-startup-id feh --bg-center ~/.cache/bg
-exec_always --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps,altwin:swap_lalt_lwin"
+# exec_always --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps,altwin:swap_lalt_lwin"
+exec_always --no-startup-id /usr/bin/setxkbmap -option "ctrl:nocaps"
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id autorandr --change
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 exec --no-startup-id xset s noblank
-exec --no-startup-id $term --class="terminal_scratchpad" tmux new-session -A -s scratchpad
+exec --no-startup-id $scratchpad
 # exec_always --no-startup-id pkill redshift; redshift &
 
 # Window Settings

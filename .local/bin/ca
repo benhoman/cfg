@@ -8,9 +8,15 @@ DOCKER_COMPOSE_FILE=$(find $REPO -type f -name docker-compose.yml -print -quit)
 _get_app_name() {
   if [[ $REPO_NAME == "brands" ]]; then
     echo "web"
+  elif [[ $REPO_NAME == "reviews-api" ]]; then
+    echo "api"
   else
     docker compose -f $DOCKER_COMPOSE_FILE config --services | grep "django" | head -n1
   fi
+}
+
+_get_task_name() {
+  docker compose -f $DOCKER_COMPOSE_FILE config --services | grep -E "celery-worker-|dramatiq-" | head -n1
 }
 
 _app_running() {
@@ -33,7 +39,37 @@ _exec_run_env() {
   fi
 }
 
+_pytest_convert() {
+  # converts
+  # app.misc.tests.test_tasks.SalesForceTest.test_send_to_salesforce
+  # app/misc/tests/test_tasks.py::SalesForceTest::test_send_to_salesforce
+  s="$1"
+  words=(${s//./ })
+  idx=""
+  for i in "${!words[@]}"; do
+    if [[ ${words[i]:0:1} == [[:upper:]] ]]; then
+      idx="$i"
+      break
+    fi
+  done
+  if [[ -z "$idx" ]]; then
+    file_path="${words[*]}"
+    echo "${file_path// //}.py"
+  else
+    file_path="${words[*]:0:idx}"
+    methods="${words[*]:idx}"
+    echo "${file_path// //}.py::${methods// /::}"
+  fi
+}
+
 APP_NAME=$(_get_app_name)
+TAKS_NAME=$(_get_task_name)
+
+if [[ $TAS == *"celery"* ]]; then
+  TLOG_FILE="celery-celery.log"
+else
+  TLOG_FILE="dramatiq.log"
+fi
 
 sub_help() {
   echo "Usage: $PROGNAME <subcommand> [options]\n"
@@ -94,6 +130,10 @@ sub_pip-compile() {
   _exec_run_env ./bin/pip-compile.sh
 }
 
+sub_compile-requirements() {
+  _exec_run_env ./bin/compile-requirements.sh
+}
+
 sub_shell() {
   if rg -q "django-extensions" $REPO/requirements*; then
     SHELL_COMMAND="shell_plus"
@@ -128,10 +168,10 @@ sub_term() {
 }
 
 sub_test() {
-  if [[ $REPO_NAME == "silverback" ]]; then
+  if [[ $REPO_NAME =~ ^(silverback|match-api|dbus)$ ]]; then
     _exec_run pytest $@
   else
-    sub_manage test $@
+    sub_manage test --failfast $@
   fi
 }
 
@@ -139,8 +179,30 @@ sub_pytest() {
   _exec_run pytest $@
 }
 
+sub_ruff() {
+  ruff format .
+  ruff check .
+}
+
 sub_has_pytest() {
   rg -q "pytest" $REPO/requirements*
+}
+
+sub_magictest() {
+  if [[ $REPO_NAME =~ ^(silverback|match-api|reviews-api|reviews-moderation|dbus|consumeraffairs)$ ]]; then
+    test_path=${@: -1}
+    echo "running pytest"
+    last_arg=$(_pytest_convert $test_path)
+    echo $last_arg
+    set -- "pytest" $last_arg
+    if [[ $REPO_NAME == "reviews-moderation" ]]; then
+      pytest $@
+    else
+      _exec_run $@
+    fi
+  else
+    sub_test $@
+  fi
 }
 
 subcommand=$1

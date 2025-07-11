@@ -51,7 +51,7 @@ function num_args () {
   echo "$#"
 }
 
-function python_throwaway () {
+function pytmp () {
   THROWAWAY_DIR=$(mktemp -d -t virtualenv-XXXXXXX)
   cd $THROWAWAY_DIR
   python3 -m venv .

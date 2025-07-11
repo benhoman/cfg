@@ -11,6 +11,7 @@ alias cagit="GIT_SSH_COMMAND='ssh -i ~/.ssh/ca_id_rsa -F /dev/null' git"
 
 # Docker-compose v1 compatibility
 export COMPOSE_COMPATIBILITY=true
+export COMPOSE_BAKE=true
 
 function cacd () {
     cd "$CA_REPOS/$1"
